@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>customer_edit</title> 
+    <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script type="text/javascript" src="../lib/jquery/jquery.min.js" ></script>
+  
+   <script> 
+     $(function(){ $("#header").load("../include/menu.html") });
+     $(function(){ $("#footer").load("../include/footer.html") });     
+   </script>   
+
+</head>
+
+<body>
+    <section class="post-wrapper-top">
+        <div id="header"></div>
+            <div class="container" align="center">      
+                <div class="container clearfix">
+                    <h2>แก้ไขข้อมูลลูกค้า</h2><br><br>                
+                     <form id="editcustomerform" onsubmit="event.preventDefault(); fetchEdidcustomer();" action="customer.html"  name="editcustomerform"  style="width: 720px; height: 440px;" >
+                        
+                        <div class="form-group">
+                            <input id="Firstname_cust" type="text" name = "Firstname_cust" class="form-control" placeholder="ชื่อ" value="">
+                        </div>
+                        <div class="form-group">
+                            <input id="Lastname_cust" type="text" name = "Lastname_cust" class="form-control" placeholder="นามสกุล" value="">
+                        </div>
+                        <div class="form-group">
+                            <input id="Tel_cust" type="text"  name = "Tel_cust" class="form-control" placeholder="เบอร์โทร" value="">
+                        </div>   
+                        
+                        <div class="form-group">
+                            <input type="submit" id="submit" name = "submit" class="button" value="บันทึก" style="width: 50px;">
+                            <input type="button" id="exit" name = "exit" class="button" value="ออก" style="width: 50px;" onclick="window.location.href='../customer/customer.html'">
+                        </div>
+                    </form> 
+                </div>    
+            </div>
+        </div>             
+          <div id="footer"></div>
+    </section>     
+   
+
+
+
+
+<script>
+      function fetchEdidcustomer() {
+            const urlname = "http://192.168.1.92:3000"
+
+            const editId = localStorage.getItem("id")
+
+            axios.get(`${urlname}/customer/` + editId).then((result) => {
+                console.log(result.data)
+                var Firstname_cust = document.getElementById("Firstname_cust")
+                Firstname_cust.value = result.data[0].Firstname_cust
+                var Lastname_cust = document.getElementById("Lastname_cust")
+                Lastname_cust.value = result.data[1].Lastname_cust
+                var Tel_cust = document.getElementById("Tel_cust")
+                element3.value = result.data[2].Tel_cust
+
+            }).catch((err) => {
+                aleart(err)
+            });
+        }
+        getBtn.addEventListener('click', submit);
+        fetchEdidCourse()
+        
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>customer_add</title> 
+    <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script> 
+  <script type="text/javascript" src="../lib/jquery/jquery.min.js" ></script>
+   <script> 
+     $(function(){ $("#header").load("../include/menu.html") });
+     $(function(){ $("#footer").load("../include/footer.html") });     
+   </script>    
+
+</head>
+<body>
+
+<section class="post-wrapper-top">
+    <div id="header"></div>
+        <div class="container" align="center">      
+            <div class="container clearfix">
+                <h2>เพิ่มข้อมูลลูกค้า</h2><br><br>                
+                 <form id="addcustomerform" onsubmit="event.preventDefault(); addcustomer();" method="post"  action="customer.html" name="addcustomerform"   style="width: 720px; height: 440px;" >
+                    
+                    <div class="form-group">
+                        <input id="Firstname_cust" type="text" name = "Firstname_cust" class="form-control" placeholder="ชื่อ">
+                    </div>
+                    <div class="form-group">
+                        <input id="Lastname_cust" type="text" name = "Lastname_cust" class="form-control" placeholder="นามสกุล">
+                    </div>
+                    <div class="form-group">
+                        <input id="Tel_cust" type="text"  name = "Tel_cust" class="form-control" placeholder="เบอร์โทร">
+                    </div>                         
+                    
+                    <div class="form-group">
+                        <input type="submit" id="submit" name = "submit" class="button" value="บันทึก" style="width: 50px;">
+                        <input type="button" id="exit" name = "exit" class="button" value="ออก" style="width: 50px;" onclick="window.location.href='../customer/customer.html'">
+                    </div>
+
+
+
+                </form> 
+            </div>    
+        </div>
+    </div>             
+      <div id="footer"></div>
+</section>
+
+<script>
+     async function addcustomer(){
+        
+        const urlname = "http://192.168.1.92:3000"
+        const Firstname_cust = document.getElementById("Firstname_cust").value
+        const Lastname_cust = document.getElementById("Lastname_cust").value
+        const Tel_cust = document.getElementById("Tel_cust").value
+        console.log(Firstname_cust,Lastname_cust,Tel_cust)
+        await axios.post(`${urlname}/customer/add`,{Firstname_cust,Lastname_cust,Tel_cust}).then((result) => {
+            console.log(result.data) 
+            alert("Complete")             
+        }).catch((err) => {
+            aleart(err)            
+        });
+    }
+    getBtn.addEventListener('click', submit);
+</script>
+
+
+
+
+
+
+
+
+    
+</body>
+</html>

@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>reserve</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+  <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/menu.css">
+
+  <script type="text/javascript" src="../lib/jquery/jquery.min.js" ></script>
+   <script> 
+     $(function(){ $("#header").load("../include/menu.html") });
+     $(function(){ $("#footer").load("../include/footer.html") });     
+   </script>
+
+</head>
+
+<body>     
+  <section class="post-wrapper-top">
+    <div id="header"></div>
+    <div class="container">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">        
+          <h2 align="center">ข้อมูลการจอง</h2>           
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        
+        <!-- search -->
+        <div class="search-bar">          
+          <form action="" method="get" align="right" >
+            <fieldset>              
+              <input type="text" class="search_text showtextback" name="s" id="s" placeholder="วันที่" align="right">
+              <input type="date" id="start" name="trip-start" value="2022-12-20"  min="2022-01-01" max="2100-12-31">
+              <input type="image" src="../image/search.png" class="searchsubmit" alt="search" width="30" height="30" align="center">
+            </fieldset>
+          </form>
+          
+        </div>
+        <!-- / end div .search-bar -->         
+           
+      </div>  
+      <table class="table table-striped" data-effect="fade" style="right: 2rem; height: 440px;">     
+      
+        <thead>
+          <tr>
+            <td colspan="8" >
+              
+            </td>
+          </tr>
+          <tr>
+            <th>ที่</th>           
+            <th>ชื่อ-สกุล</th>           
+            <th>หมอนวด</th>  
+            <th>ราคา</th>
+            <th>ชั่วโมง</th>
+            <th>การจัดการ</th> 
+          </tr>
+        </thead>
+        
+        <tbody id="reserve">         
+        
+        </tbody>       
+        
+      </table>
+
+      <buttonDownload>
+        <p  align="right"><button class="btn"><i class="fa fa-download" style="color: blue;"></i> Download</button> </p>
+      </buttonDownload>  
+  
+    <div id="footer"></div>    
+  </section>  
+
+
+  <script>
+    var bodyHtml = document.getElementById("reserve")
+    const urlname = "http://192.168.1.92:3000"
+    async function getData() {
+      const response = await axios.get(urlname + "/reserve")
+      var data = response.data
+      if (response){
+        hideLoader()
+      }
+      DisplayData(data)
+    }
+    getData()
+
+    //console.log(response)
+    function hideLoader() {
+      document.getElementById("loading").style.display = "none"
+    }
+    function DisplayData(data) {
+      let body = ""
+      for (let r of data) {
+        body += `<tr>
+            <td>${r.ID_reserve}</td>
+            <td>${r.ID_customer}</td>
+            <td>${r.ID_masseuse}</td>
+            <td>${r.Total_Price_course}</td>
+            <td>${r.Total_Hour_course}</td>            
+            <td>
+              <a href="../reserve/reserve_add.html">
+              <img src="../image/add.png" width="30">
+              <a href="../reserve/reserve_edit.html">
+                <img src="../image/edit.png" width="30">
+              <a href="../reserve/reserve_del.html" onclick="return checkDelete()">
+              <img src="../image/delete.png" width="28"></a>
+            </td>
+    </tr>
+      `
+      }
+    bodyHtml.innerHTML = body 
+    }
+
+    
+  </script>
+
+</body>
+</html>

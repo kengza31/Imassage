@@ -1,0 +1,84 @@
+body {
+    margin: 0;
+    /* font-family: Arial, Helvetica, sans-serif;     */
+    font-family: 'Sarabun';
+  }
+* {box-sizing: border-box;}
+
+
+
+.input-container_login {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+  align-items: center;
+    }
+
+.icon_login {
+  padding: 10px;
+  background: rgb(194, 141, 174);
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-field_login {
+  width: 100%;
+  padding: 9px;
+  outline: none;
+  
+}
+
+.input-field:focus {
+  border: 2px solid rgb(194, 141, 174);
+}
+
+/* Set a style for the submit button */
+.btn {
+  background-color: rgb(194, 141, 174);
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  
+}
+
+.btn:hover {
+  opacity: 1;
+  background-color: rgb(148, 57, 113);
+  }
+
+nav a{
+text-decoration: none;
+
+}
+
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+  
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+
+}
+
+area{
+  background-color: #ddd;
+
+}

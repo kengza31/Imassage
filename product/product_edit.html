@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>products_edit</title>
+
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script> 
+  <script type="text/javascript" src="../lib/jquery/jquery.min.js" ></script>
+   <script> 
+     $(function(){ $("#header").load("../include/menu.html") });
+     $(function(){ $("#footer").load("../include/footer.html") });     
+   </script>
+
+</head>
+<body>
+    <section class="post-wrapper-top">
+        <div id="header"></div>
+            <div class="container" align="center">      
+                <div class="container clearfix">
+                    <h2>แก้ไขข้อมูลสินค้า</h2><br><br>                
+                     <form id="editproductsform" onsubmit="event.preventDefault(); fetchEdidproduct()" method="post" name="editproductsform" enctype="multipart/form-data" style="width: 720px; height: 440px;" >
+                        <div class="form-group">
+                            <input id="Name_Product" type="text" name = "Name_Product" class="form-control" placeholder="ชื่อสินค้า">
+                        </div>
+                        <div class="form-group">
+                            <input id="Details_Product" type="text"  name = "Details_Product" class="form-control" placeholder="รายละเอียดสินค้า">
+                        </div>                        
+                        <div class="form-group">
+                            <input id="Pic_ Product" type="file" name = "Pic_ Product"  class="form-control" placeholder="รูปสินค้า">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" id="submit" name = "submit" class="button" value="บันทึก" onclick="window.location.href='../product/product.html'">
+                        </div>
+                    </form> 
+                </div>    
+            </div>
+        </div>             
+          <div id="footer"></div>
+    </section>
+
+    <script>
+        function fetchEdidproduct() {
+            const urlname = "http://192.168.1.92:3000"
+
+            const editId = localStorage.getItem("id")
+
+            axios.get(`${urlname}/course/` + editId).then((result) => {
+                console.log(result.data)
+                var element1 = document.getElementById("Name_Product")
+                element1.value = result.data[1].Details_course
+                var element2 = document.getElementById("Details_Product")
+                element2.value = result.data[2].Price_course
+                var element3 = document.getElementById("Pic_ Product")
+                element3.value = result.data[3].Hour_course
+
+            }).catch((err) => {
+                aleart(err)
+            });
+        }
+        fetchEdidproduct()
+        getBtn.addEventListener('click', submit);
+
+    </script>
+
+    
+</body>
+</html>

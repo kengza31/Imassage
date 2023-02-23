@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>products_add</title>  
+
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
+  <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script> 
+
+  <script type="text/javascript" src="../lib/jquery/jquery.min.js" ></script>
+   <script> 
+     $(function(){ $("#header").load("../include/menu.html") });
+     $(function(){ $("#footer").load("../include/footer.html") });     
+   </script>
+
+</head>
+<body>
+<section class="post-wrapper-top">
+    <div id="header"></div>
+        <div class="container" align="center">      
+            <div class="container clearfix">
+                <h2>เพิ่มข้อมูลสินค้า</h2><br><br>      
+                    <!-- <form id="addproductsform" onsubmit="event.preventDefault(); addproduct();console.log('hello')" method="post" name="addproductsform"  enctype="multipart/form-data" style="width: 720px; height: 440px;"> -->
+                    <form id="addproductsform" onsubmit="event.preventDefault(); addproduct();console.log('hello')"  name="addproductsform"  style="width: 720px; height: 440px;" >
+             
+                        <div class="form-group">
+                            <input id="Name_Product" type="text" name = "Name_Product" class="form-control" placeholder="ชื่อสินค้า">
+                        </div>
+                        <div class="form-group">
+                            <input id="Details_Product" type="text" name = "Details_Product" class="form-control" placeholder="รายละเอียดสินค้า">
+                        </div>                        
+                        <div class="form-group">
+                            <input id="Pic_Product" type="file" name = "Pic_Product"  class="form-control" placeholder="รูปสินค้า">
+                        </div>
+                        <div class="form-group">
+                            <input  type="submit" id="submit" name = "submit" class="button" value="บันทึก" onclick="window.location.href='../product/product.html'">
+                        </div>
+                </form> 
+            </div>    
+        </div>
+    </div>             
+      <div id="footer"></div>
+</section>
+
+  <script>
+   async function addproduct(){
+        const urlname = "http://192.168.1.92:3000"
+        const Name_Product = document.getElementById("Name_Product").value
+        const Details_Product = document.getElementById("Details_Product").value
+        const Pic_Product = document.getElementById("Pic_Product").value
+        console.log(Name_Product,Details_Product,Pic_Product)
+
+        await axios.post(`${urlname}/product/add`,{Name_Product,Details_Product,Pic_Product}).then((result) => {
+           console.log(result.data) 
+           alert("Complete")     
+       }).catch((err) => {
+           aleart(err)            
+       });
+    }
+    getBtn.addEventListener('click', submit);
+</script>
+
+
+
+
+</body>
+</html>

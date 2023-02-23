@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reserve_add</title>
+ 
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+  <script type="text/javascript" src="../lib/jquery/jquery.min.js" ></script>
+   <script> 
+     $(function(){ $("#header").load("../include/menu.html") });
+     $(function(){ $("#footer").load("../include/footer.html") });     
+   </script>    
+
+</head>
+<body>
+
+<section class="post-wrapper-top">
+    <div id="header"></div>
+        <div class="container" align="center">      
+            <div class="container clearfix">
+                <h2>เพิ่มข้อมูลการจอง</h2><br><br>                
+                 <form id="addreserveform" onsubmit="event.preventDefault(); addreserve()" method="post" name="addreserveform" action="reserve.html" enctype="multipart/form-data" >
+                    <div class="form-group">
+                        <input type="text" name = "Firstname_cust" class="form-control" placeholder="ชื่อ">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name = "Lastname_cust" class="form-control" placeholder="นามสกุล">
+                    </div>
+                    <div class="form-group">
+                        <input type="text"  name = "Tel_cust" class="form-control" placeholder="เบอร์โทร">
+                    </div>  
+                        
+                    <div class="form-group">
+                        <input type="date"  name = "Date_reserve" class="form-control" placeholder="เวลา">
+                    </div>
+                    <div class="form-group">
+                        <input type="time"  name = "Time_begin" class="form-control" placeholder="เวลาเริ่มต้น">
+                    </div>
+                    <div class="form-group">
+                        <input type="time"  name = "Time_end" class="form-control" placeholder="เวลาสิ้นสุด">
+                    </div>
+                    <div class="form-group">
+                        <input type="text"  name = "ID_masseuse" class="form-control" placeholder="หมอนวด">
+                    </div>
+                    <div class="form-group">
+                        <input type="text"  name = "ID_course" class="form-control" placeholder="การบริการ">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" name = "submit" class="button" value="บันทึก" onclick="window.location.href='../reserve/reserve.html'">
+                    </div>
+                </form> 
+            </div>    
+        </div>
+    </div>             
+      <div id="footer"></div>
+</section>  
+
+<script>
+    async function addreserve(){
+        const urlname = "http://192.168.1.92:3000"
+        const Firstname_cust = document.getElementById("Firstname_cust").value
+        const Lastname_cust = document.getElementById("Lastname_cust").value
+        const Tel_cust = document.getElementById("Tel_cust").value
+        const Date_reserve = document.getElementById("Date_reserve").value
+        const Time_begin = document.getElementById("Time_begin").value
+        const Time_end = document.getElementById("Time_end").value
+        const ID_masseuse = document.getElementById("ID_masseuse").value
+        const ID_course = document.getElementById("ID_course").value
+
+        console.log(Firstname_cust,Lastname_cust,Tel_cust,Date_reserve,Time_begin,Time_end,ID_masseuse,ID_course)
+
+      await  axios.post(`${urlname}/reserve/add`,{Firstname_cust,Lastname_cust,Tel_cust,Date_reserve,Time_begin,Time_end,ID_masseuse,ID_course}).then((result) => {
+            console.log(result.data)      
+        }).catch((err) => {
+            aleart(err)            
+        });
+    }
+    getBtn.addEventListener('click', submit);
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course_edit</title>
+    <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+    <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+
+
+    <script>
+        $(function () { $("#header").load("../include/menu.html") });
+        $(function () { $("#footer").load("../include/footer.html") });
+
+    </script>
+
+</head>
+
+<body>
+    <section class="post-wrapper-top">
+        <div id="header"></div>
+        <div class="container" align="center">
+            <div class="container clearfix">
+                <h2>แก้ไขข้อมูลคลอสนวด</h2><br><br>
+                <form id="editcourseform" onsubmit="event.preventDefault(); fetchEdidCourse()" method="post"
+                    name="editcourseform" enctype="multipart/form-data" style="width: 720px; height: 440px;">
+                    <div class="form-group">
+                        <input id="Details_course" type="text" name="Details_course" class="form-control"
+                            placeholder="รายละเอียด" value="">
+                    </div>
+                    <div class="form-group">
+                        <input id="Price_course" type="text" name="Price_course" class="form-control"
+                            placeholder="ราคา">
+                    </div>
+                    <div class="form-group">
+                        <input id="Hour_course" type="text" name="Hour_course" class="form-control"
+                            placeholder="ชั่วโมง">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" id="submit" name="submit" class="button" value="บันทึก"
+                            onclick="window.location.href='../course/course.html'">
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+        <div id="footer"></div>
+    </section>
+
+    <script>
+        // function editcourse(){         
+
+        //         const urlname = "http://192.168.1.92:3000"
+        //         console.log("hello")
+
+        //         console.log(y);
+        //             selectedRow = y.parentElement.parentElement; 
+        //             document.querySelector(".ID_course").value = selectedRow.cells[1].innerHTML;
+        //             document.querySelector(".Details_course").value = selectedRow.cells[2].innerHTML;
+        //             document.querySelector(".Price_course").value = selectedRow.cells[3].innerHTML;                    
+        //             document.querySelector(".Hour_course").value = selectedRow.cells[4].innerHTML;
+
+        //     console.log(y)
+        //     axios.get(`${urlname}/course/edit`+id,{ID_course,Details_course,Price_course,Hour_course}).then((result) => {
+        //         console.log(result.data)      
+        //     }).catch((err) => {
+        //         aleart(err)            
+        //     });
+        // }
+        // getBtn.addEventListener('click', submit);
+        // editcourse()
+        function fetchEdidCourse() {
+            const urlname = "http://192.168.1.92:3000"
+
+            const editId = localStorage.getItem("id")
+
+            axios.get(`${urlname}/course/` + editId).then((result) => {
+                console.log(result.data)
+                var element1 = document.getElementById("Details_course")
+                element1.value = result.data[0].Details_course
+                var element2 = document.getElementById("Price_course")
+                element2.value = result.data[0].Price_course
+                var element3 = document.getElementById("Hour_course")
+                element3.value = result.data[0].Hour_course
+
+            }).catch((err) => {
+                aleart(err)
+            });
+        }
+        fetchEdidCourse()
+
+    </script>
+
+
+
+</body>
+
+</html>

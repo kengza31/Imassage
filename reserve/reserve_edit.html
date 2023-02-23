@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reserve_edit</title>
+    <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+   <script type="text/javascript" src="../lib/jquery/jquery.min.js" ></script>
+   <script> 
+     $(function(){ $("#header").load("../include/menu.html") });
+     $(function(){ $("#footer").load("../include/footer.html") });     
+   </script>    
+
+</head>
+<body>
+
+<section class="post-wrapper-top">
+    <div id="header"></div>
+        <div class="container" align="center">      
+            <div class="container clearfix">
+                <h2>แก้ไขข้อมูลการจอง</h2><br><br>                
+                 <form id="editreserveform" onsubmit="event.preventDefault(); fetchEdiDreserve()" method="post" name="editreserveform" action="reserve.html" enctype="multipart/form-data" >
+                    <div class="form-group">
+                        <input type="text" name = "rname" class="form-control" placeholder="ชื่อ">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name = "rlname" class="form-control" placeholder="นามสกุล">
+                    </div>
+                    <div class="form-group">
+                        <input type="text"  name = "tel" class="form-control" placeholder="เบอร์โทร">
+                    </div>  
+                        
+                    <div class="form-group">
+                        <input type="date"  name = "date" class="form-control" placeholder="เวลา">
+                    </div>
+                    <div class="form-group">
+                        <input type="time"  name = "timebegin" class="form-control" placeholder="เวลาเริ่มต้น">
+                    </div>
+                    <div class="form-group">
+                        <input type="time"  name = "timeend" class="form-control" placeholder="เวลาสิ้นสุด">
+                    </div>
+                    <div class="form-group">
+                        <input type="text"  name = "masseuse" class="form-control" placeholder="หมอนวด">
+                    </div>
+                    <div class="form-group">
+                        <input type="text"  name = "service" class="form-control" placeholder="การบริการ">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" id="submit" name = "submit" class="button" value="บันทึก" onclick="window.location.href='../reserve/reserve.html'">
+                    </div>
+                </form> 
+            </div>    
+        </div>
+    </div>             
+      <div id="footer"></div>
+</section>
+
+
+
+<script>
+    function fetchEdiDreserve() {
+        const urlname = "http://192.168.1.92:3000"
+
+        const editId = localStorage.getItem("id")
+
+        axios.get(`${urlname}/course/` + editId).then((result) => {
+            console.log(result.data)
+            var Firstname_cust = document.getElementById("Firstname_cust")
+            Firstname_cust.value = result.data[0].Firstname_cust
+            var Lastname_cust = document.getElementById("Lastname_cust")
+            Lastname_cust.value = result.data[0].Lastname_cust
+            var Tel_cust = document.getElementById("Tel_cust")
+            Tel_cust.value = result.data[0].Tel_cust
+            var Date_reserve = document.getElementById("Date_reserve")
+            Date_reserve.value = result.data[0].Date_reserve
+            var Time_begin = document.getElementById("Time_begin")
+            Time_begin.value = result.data[0].Time_begin
+            var Time_end = document.getElementById("Time_end")
+            Time_end.value = result.data[0].Time_end
+            var ID_masseuse = document.getElementById("ID_masseuse")
+            ID_masseuse.value = result.data[0].ID_masseuse
+            var ID_course = document.getElementById("ID_course")
+            ID_course.value = result.data[0].ID_course
+
+        }).catch((err) => {
+            aleart(err)
+        });
+    }
+    getBtn.addEventListener('click', submit);
+    fetchEdiDreserve()
+    
+</script>
+
+
+
+    
+</body>
+</html>

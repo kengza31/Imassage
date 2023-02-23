@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<area>
+
+<head>    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/login.css">
+    
+    <link href="../image/logo23.png" rel="icon" type="image/x-icon">
+    
+    <style>
+        body {
+          background-image: url('../image/banner5.png');
+          background-repeat: no-repeat;
+          background-attachment: fixed;          
+          background-size: 100% 100%;             
+          /* background-color: beige;  */
+        }      
+                  
+        </style>
+
+    
+</head>
+
+<body>
+
+   
+ 
+<section class="post-wrapper-top">  
+    <div class="container" align="center" style="margin-top: 19rem;"> 
+       
+       
+        <form class="modal-content animate" action="menu.html" style="background-color: white; width: 500px;" align-items: center;>
+            <div style="padding: 30px;">
+                <div style="display: flex; justify-content:space-between; align-items: center;"
+                    onclick="document.getElementById('login_modal').style.display='none'">
+                    <h2>เข้าสู่ระบบ</h2>
+                    <p style="font-size:24px;cursor:pointer" onmouseover='this.style.color="red"' 
+                    onmouseout='this.style.color="black"'>&times;</p>
+                </div>
+        
+                <div class="input-container_login">
+                    <i class="fa fa-user icon_login"></i>
+                    <input class="input-field_login" type="text" placeholder="Username" name="usrnm">
+                </div>
+        
+                <div class="input-container_login">
+                    <i class="fa fa-key icon_login"></i>
+                    <input class="input-field_login" type="password" placeholder="Password" name="psw">
+                </div>
+        
+                <button type="submit" class="btn">LOGIN</button>
+        
+            </div>
+        
+        </form>
+    </div>    
+</section>
+</body>
+</html>

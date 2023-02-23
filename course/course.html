@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course</title>
+
+    <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+  
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sarabun">
+  <link href="../css/menu.css" rel="stylesheet">
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+
+  <script type="text/javascript" src="../lib/jquery/jquery.min.js" ></script>
+   <script> 
+     $(function(){ $("#header").load("../include/menu.html") });
+     $(function(){ $("#footer").load("../include/footer.html") });     
+   </script>
+</head>
+<div id="header"></div>
+<body>
+    
+    <section class="post-wrapper-top">
+    
+        <div class="container" style="height:640px;">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            
+            <h2>ข้อมูลคลอสนวด</h2>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <!-- search -->
+            <div class="search-bar">
+              <form action="" method="get">
+                <fieldset>
+                  <input type="image" src="../image/search.png" class="searchsubmit" alt="search" width="30" height="30" align="center">
+                  <input type="text" class="inputSearch" name="s" id="inputSearch" placeholder="คลอสนวด" align="right">
+                </fieldset>
+              </form>
+            </div>
+            <!-- / end div .search-bar -->
+          </div>
+          <table class="table table-striped" data-effect="fade" align="center" >
+            <thead>
+              <tr>
+                <td colspan="8" align="center">
+                  <a href="../course/course_add.html"><h4>เพิ่มข้อมูลคลอสนวด</h4></a>
+                </td>
+              </tr>
+              <tr>
+                <th>ที่</th>
+                <th>รายละเอียด</th>        
+                <th>ราคา</th> 
+                <th>ชั่วโมง</th>                     
+                <th>การจัดการ</th>       
+              </tr>
+            </thead>
+            <tbody id="course">       
+            </tbody>
+          </table>
+          <div id="loading"> <span>Loading..</span></div>
+          
+        </div>
+        <div id="footer"></div>
+      </section>
+    
+    
+      <script>          
+        var bodyHtml = document.getElementById("course")
+        const urlname = "http://192.168.1.92:3000"
+        async function getData() {
+          const response = await axios.get(urlname + "/course")
+          var data = response.data
+          if (response){
+            hideLoader()
+          }
+          DisplayData(data)
+        }
+        getData()
+    
+        //console.log(response)
+        function hideLoader() {
+          document.getElementById("loading").style.display = "none"
+        }
+        function DisplayData(data) {
+          let body = ""
+          for (let r of data) {
+            body += `<tr>
+                <td>${r.ID_course}</td>
+                <td>${r.Details_course}</td>
+                <td>${r.Price_course}</td>
+                <td>${r.Hour_course}</td>              
+                <td>                
+                <a href="../course/course_edit.html" onClick="editCourse(${r.ID_course})">
+                <img src="../image/edit.png" width="30"> 
+                </a> 
+                <a class="dlt" onClick="deletedata(${r.ID_course})"><img src="../image/delete.png" width="30"> </a>
+
+                
+                </td>
+
+
+        </tr>
+          `
+          }
+        bodyHtml.innerHTML = body 
+        }
+       
+              
+      </script>
+      <script>
+       function editCourse(id){
+        localStorage.setItem("id",id)
+
+       }
+
+          var bodyHtml = document.getElementById("course")
+        const url_name = "http://192.168.1.92:3000"
+        async function deletedata(id) {
+          console.log(id)
+          const response = await axios.delete(url_name + "/course/delete/"+id)
+          var data = response.data
+          window.location.reload()       
+        
+          ; 
+        }
+        
+      </script>
+
+
+
+         
+      <div class="dmtop"></div>
+    
+</body>
+</html>

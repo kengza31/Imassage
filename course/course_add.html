@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course_add</title> 
+    <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+  <script type="text/javascript" src="../lib/jquery/jquery.min.js" ></script>
+  
+   <script> 
+     $(function(){ $("#header").load("../include/menu.html") });
+     $(function(){ $("#footer").load("../include/footer.html") });     
+   </script>   
+
+</head>
+
+<body>
+    <section class="post-wrapper-top">
+        <div id="header"></div>
+            <div class="container" align="center">      
+                <div class="container clearfix">
+                    <h2>เพิ่มข้อมูลคลอสนวด</h2><br><br>                
+                     <form id="addcourseform" onsubmit="event.preventDefault(); addcourse();"  name="addcourseform" style="width: 720px; height: 440px;" >
+                        <div class="form-group">
+                            <input id="Details_course" type="text" name = "Details_course" class="form-control" placeholder="รายละเอียด">
+                        </div>
+                        <div class="form-group">
+                            <input id="Price_course" type="text" name = "Price_course" class="form-control" placeholder="ราคา">
+                        </div>
+                        <div class="form-group">
+                            <input id="Hour_course" type="text"  name = "Hour_course" class="form-control" placeholder="ชั่วโมง">
+                        </div>   
+                        
+                        <div class="form-group">
+                            <input type="submit" id="submit" name = "submit" class="button" value="บันทึก" style="width: 50px;">
+                            <input type="button" id="exit" name = "exit" class="button" value="ออก" style="width: 50px;" onclick="window.location.href='../course/course.html'">
+                        </div>
+                    </form> 
+                </div>    
+            </div>
+        </div>             
+          <div id="footer"></div>
+    </section>   
+   
+   
+
+<script>
+
+    
+    async function addcourse(){
+
+       const urlname = "http://192.168.1.92:3000"
+       const Details_course = document.getElementById("Details_course").value
+       const Price_course = document.getElementById("Price_course").value
+       const Hour_course = document.getElementById("Hour_course").value
+       console.log(Details_course,Price_course,Hour_course)
+
+       await axios.post(`${urlname}/course/add`,{Details_course,Price_course,Hour_course}).then((result) => {
+           console.log(result.data) 
+           alert("Complete")     
+       }).catch((err) => {
+           aleart(err)            
+       });
+   }
+   getBtn.addEventListener('click', submit);
+</script>
+   
+
+
+
+
+
+    
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+body{
+    margin: 0;
+    padding: 0;
+    width: 100%;      
+    font-family: Arial, Helvetica, sans-serif;
+    /* margin-top: 760px; */
+}
+footer{
+    box-sizing: border-box;
+    padding: .5rem 0;
+    text-align: center;
+    background: #292f36;
+    color: #f7f6f5;
+    width: 100%;  
+    
+}
+
+footer img{
+    padding: .5rem 0;
+    text-align: center;
+    color: #f7f6f5;
+    size: 40px;   
+} 
+
+footer table{
+    padding: 0;
+    top: 40px;    
+
+}
+
+.fixed-footer{
+    width: 100%;    
+    position: fixed;
+    top: 0;
+    left: 0;
+}

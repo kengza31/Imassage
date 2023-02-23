@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>masseuse_add</title>
+
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+
+
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script> 
+  <script type="text/javascript" src="../lib/jquery/jquery.min.js" ></script>
+   <script> 
+     $(function(){ $("#header").load("../include/menu.html") });
+     $(function(){ $("#footer").load("../include/footer.html") });     
+   </script>
+
+</head>
+<body>
+  <section class="post-wrapper-top">
+    <div id="header"></div>
+        <div class="container" align="center">      
+            <div class="container clearfix">
+                <h2>เพิ่มข้อมูลหมอนวด</h2><br><br>                
+                 <form id="addmasseuseform" onsubmit="event.preventDefault(); addmasseuse();"  name="addmasseuseform"   style="height: 440px;">
+                    <div class="form-group">
+                        <input id="Name_masseuse" type="text" name = "Name_masseuse" class="form-control" placeholder="ชื่อ">
+                    </div>
+                    <div class="form-group">
+                        <input id="Tel_masseuse" type="text"  name = "Tel_masseuse" class="form-control" placeholder="เบอร์โทร">
+                    </div> 
+
+                    <div class="form-group">
+                        <input id="license" type="file" name = "license"  class="form-control" placeholder="ใบประกอบวิชาชีพ" value="upload">
+                    </div>                   
+                     
+                    <div class="form-group">
+                        <input id="Pic_masseuse" type="file" name = "Pic_masseuse"  class="form-control" placeholder="รูปถ่าย" value="upload">
+                    </div>
+
+                    <!-- <div class="form-group">         
+                        <select id="ID_Status" type="text" value="" name="ID_Status" style="height: 40px;" class="form-control" >
+                          <option>กรุณาเลือกสถานะ</option>
+                          <option>ปกติ</option>
+                          <option>หยุด</option>                      
+                        </select><br><br>
+                    </div>                 -->
+                    <div class="form-group">
+                        <input type="submit" id="submit" name = "submit" class="button" value="บันทึก" style="width: 50px;">
+                        <input type="button" id="submit" name = "exit" class="button" value="ออก" style="width: 50px;" onclick="window.location.href='../masseuse/masseuse.html'">
+                    </div>
+                </form> 
+            </div>    
+        </div>
+    </div>             
+      <div id="footer"></div>
+</section>
+
+<!-- AddDataForm -->
+
+<script>
+    async function addmasseuse(){
+        const urlname = "http://192.168.1.92:3000"
+        const Name_masseuse = document.getElementById("Name_masseuse").value
+        const Tel_masseuse = document.getElementById("Tel_masseuse").value        
+        const license = document.getElementById("license")       
+        const Pic_masseuse = document.getElementById("Pic_masseuse")
+
+
+        const form = document.getElementById("addmasseuseform")
+
+        var bodyFormData = new FormData();
+        bodyFormData.append("Name_masseuse",Name_masseuse)
+        bodyFormData.append("Tel_masseuse",Tel_masseuse)
+        bodyFormData.append("license",license.files[0])
+        bodyFormData.append("Pic_masseuse",Pic_masseuse.files[0])
+
+        console.log("Body : ",bodyFormData)
+        
+        
+        // console.log(Name_masseuse,Tel_masseuse,Pic_masseuse)
+        await axios.post(`${urlname}/masseuse/upload`,bodyFormData,{
+            headers:{
+                "Content-Type":"multipart/form-data"
+            }
+        }).then((result) => {
+            console.log(result.data)      
+        }).catch((err) => {
+            aleart(err)            
+        });
+    }
+    getBtn.addEventListener('click', submit);
+</script>
+
+
+
+
+<!-- <script>
+    async function addcourse(){
+       const urlname = "http://192.168.1.92:3000"
+       const Details_course = document.getElementById("Details_course").value
+       const Price_course = document.getElementById("Price_course").value
+       const Hour_course = document.getElementById("Hour_course").value
+       console.log(Details_course,Price_course,Hour_course)
+
+       await axios.post(`${urlname}/course/add`,{Details_course,Price_course,Hour_course}).then((result) => {
+           console.log(result.data) 
+           alert("Complete")     
+       }).catch((err) => {
+           aleart(err)            
+       });
+   }
+   getBtn.addEventListener('click', submit);
+</script> -->
+   
+
+
+
+</body>
+</html>

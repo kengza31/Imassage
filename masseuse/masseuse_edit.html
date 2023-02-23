@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>masseuse_edit</title>
+
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/menu.css" rel="stylesheet">
+  <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+  <script type="text/javascript" src="../lib/jquery/jquery.min.js" ></script>
+   <script> 
+     $(function(){ $("#header").load("../include/menu.html") });
+     $(function(){ $("#footer").load("../include/footer.html") });     
+   </script>
+
+</head>
+<body>
+<section class="post-wrapper-top">
+    <div id="header"></div>
+        <div class="container" align="center">      
+            <div class="container clearfix">
+                <h2>แก้ไขข้อมูลหมอนวด</h2><br><br>                
+                 <form id="editmasseuseform" onsubmit="event.preventDefault(); fetchEdidmasseuse()"  method="post" name="editmasseuseform" enctype="multipart/form-data" style="height: 440px;">
+                    <div class="form-group">
+                        <input id="Name_masseuse" type="text" name = "Name_masseuse" class="form-control" placeholder="ชื่อ">
+                    </div>
+                    <div class="form-group">
+                        <input id="Tel_masseuse" type="text"  name = "Tel_masseuse" class="form-control" placeholder="เบอร์โทร">
+                    </div> 
+
+                    <div class="form-group">
+                        <input id="license" type="file" name = "license"  class="form-control" placeholder="ใบประกอบวิชาชีพ">
+                    </div>                   
+                     
+                    <div class="form-group">
+                        <input id="Pic_masseuse" type="file" name = "Pic_masseuse"  class="form-control" placeholder="รูปถ่าย">
+                    </div>
+                    <div class="form-group">         
+                        <select id="ID_Status" type="text" value="" name="ID_Status" style="height: 40px;" class="form-control" >
+                          <option>กรุณาเลือกสถานะ</option>
+                          <option>ปกติ</option>
+                          <option>หยุด</option>                      
+                        </select><br><br>
+                    </div>                
+                    <div class="form-group">
+                        <input type="submit" id="submit" name = "submit" class="button" value="บันทึก" onclick="window.location.href='../masseuse/masseuse.html'">
+                    </div>
+                </form> 
+            </div>    
+        </div>
+    </div>             
+      <div id="footer"></div>
+</section>
+
+
+<script>
+    function fetchEdidmasseuse() {
+            const urlname = "http://192.168.1.92:3000"
+
+            const editId = localStorage.getItem("id")
+
+            axios.get(`${urlname}/masseuse/` + editId).then((result) => {
+                console.log(result.data)
+                var element1 = document.getElementById("Name_masseuse")
+                element1.value = result.data[1].Details_course
+                var element2 = document.getElementById("Tel_masseuse")
+                element2.value = result.data[2].Price_course
+                var element3 = document.getElementById("license")
+                element3.value = result.data[3].Hour_course
+                var element4 = document.getElementById("Pic_masseuse")
+                element2.value = result.data[4].Price_course
+                var element5 = document.getElementById("ID_Status")
+                element3.value = result.data[5].Hour_course
+
+            }).catch((err) => {
+                aleart(err)
+            });
+        }
+        fetchEdidmasseuse()
+        getBtn.addEventListener('click', submit);
+</script>
+
+    
+</body>
+</html>

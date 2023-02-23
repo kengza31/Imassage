@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>customer</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/menu.css">
+  <script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+
+
+  <script>
+    $(function () { $("#header").load("../include/menu.html") });
+    $(function () { $("#footer").load("../include/footer.html") });     
+  </script>
+</head>
+
+<body>
+  <div id="header"></div>
+  <section class="post-wrapper-top" >
+
+    <div class="container" >
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <h2 align="center">ข้อมูลลูกค้า</h2>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <!-- search -->
+        <div class="search-bar" align="center">
+          <form action="" method="get">
+            <fieldset>
+              <input type="image" src="../image/search.png" class="searchsubmit" alt="search" width="30" height="30"
+                align="center">
+              <input type="text" class="search_text showtextback" name="s" id="s" placeholder="ลูกค้า" align="right">
+            </fieldset>
+          </form>
+        </div>
+        <!-- / end div .search-bar -->
+
+      </div>
+
+      <table class="table table-striped" data-effect="fade" align="center" style="height: 440px;" >
+        <thead>
+          <tr>
+            <td colspan="8" align="center">
+              <a href="../customer/customer_add.html"><h4>เพิ่มข้อมูลลูกค้า</h4></a>
+            </td>
+          </tr>
+          <tr>
+            <th>ที่</th>
+            <th>ชื่อ</th>
+            <th>สกุล</th>
+            <th>เบอร์โทร</th>
+            <th>การจัดการ</th>
+          </tr>
+        </thead>
+        <tbody id="customer">   
+        </tbody>
+      </table>
+      <div id="loading"> <span>Loading..</span></div>      
+
+    </div>
+    <div id="footer"></div>
+  </section>
+
+  <script>
+    var bodyHtml = document.getElementById("customer")
+    const urlname = "http://192.168.1.92:3000"
+    async function getData() {
+      const response = await axios.get(urlname + "/customer")
+      var data = response.data
+      if (response){
+        hideLoader()
+      }
+      DisplayData(data)
+    }
+    getData()
+
+    //console.log(response)
+    function hideLoader() {
+      document.getElementById("loading").style.display = "none"
+    }
+    function DisplayData(data) {
+      let body = ""
+      for (let r of data) {
+        body += `<tr>
+            <td>${r.ID_Cust}</td>
+            <td>${r.Firstname_cust}</td>
+            <td>${r.Lastname_cust}</td>
+            <td>${r.Tel_cust}</td>
+            <td>
+            <a href="../customer/customer_edit.html?ID_cust='.${r.ID_Cust}'">
+              
+            <img src="../image/edit.png" width="30">
+            </td>
+    </tr>
+      `
+      }
+    bodyHtml.innerHTML = body 
+    }
+  </script>
+
+
+
+
+</body>
+
+</html>

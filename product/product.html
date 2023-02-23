@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Imassage</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <link rel="stylesheet" href="../css/menu.css">
+  <link href="../image/logo18.png" rel="icon" type="image/x-icon">
+<link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script> 
+
+
+<script type="text/javascript" src="../lib/jquery/jquery.min.js" ></script>
+ <script> 
+   $(function(){ $("#header").load("../include/menu.html") });
+   $(function(){ $("#footer").load("../include/footer.html") });   
+ </script>
+
+</head>
+
+<body> 
+  <section class="post-wrapper-top">
+    <div id="header"></div>
+    <div class="container">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">        
+        <h2 align="center">ข้อมูลสินค้า</h2>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        
+        <!-- search -->
+        <div class="search-bar" align="right">
+          <form action="" method="get">
+            <fieldset>
+              <input type="image" src="../image/search.png" class="searchsubmit" alt="search" width="30" height="30" align="center">
+              <input type="text" class="search_text showtextback" name="s" id="s" placeholder="สินค้า" align="right">
+            </fieldset>
+          </form>
+        </div>
+        <!-- / end div .search-bar -->
+        
+      </div>
+      <table class="table table-striped" data-effect="fade" align="center">
+        <thead>
+          <tr>
+            <td colspan="8" align="center">
+              <a href="../product/product_add.html"><h4>เพิ่มข้อมูลสินค้า</h4></a>
+            </td>
+          </tr>
+          <tr>
+            <th>ที่</th>
+            <th>ชื่อ</th>            
+            <th>รายละเอียด</th>
+            <th>รูปภาพ</th>  
+            <th>การจัดการ</th>              
+          </tr>
+        </thead>
+        <tbody id="product">   
+        </tbody>
+      </table>
+      <div id="loading"> <span>Loading..</span></div>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+
+    <div id="footer"></div>
+  </section> 
+
+  <script>
+    var bodyHtml = document.getElementById("product")
+    const urlname = "http://192.168.1.92:3000"
+    async function getData() {
+      const response = await axios.get(urlname + "/product")
+      var data = response.data
+      if (response){
+        hideLoader()
+      }
+      DisplayData(data)
+    }
+    getData()
+
+    //console.log(response)
+    function hideLoader() {
+      document.getElementById("loading").style.display = "none"
+    }
+    function DisplayData(data) {
+      let body = ""
+      for (let r of data) {
+        body += `<tr>
+            <td>${r.ID_Product}</td>
+            <td>${r.Name_Product}</td>
+            <td>${r.Details_Product}</td>
+            <td><img  src="http://192.168.1.92:3000/${r.Pic_Product}"/ width="50" height="50"></td>
+            <td>
+            
+            <a href="../product/product_edit.html">
+            <img src="../image/edit.png" width="30">
+            </td>
+    </tr>
+      `
+      }
+    bodyHtml.innerHTML = body 
+    }
+  </script>
+
+
+
+
+
+</body>
+</html>
